@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 25-Out-2022 às 03:36
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 25-Out-2022 às 13:27
+-- Versão do servidor: 10.4.25-MariaDB
+-- versão do PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `banco_curriculos`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categorias_deficiencia`
+--
+
+CREATE TABLE `categorias_deficiencia` (
+  `IDCD` int(11) NOT NULL,
+  `categoria` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `categorias_deficiencia`
+--
+
+INSERT INTO `categorias_deficiencia` (`IDCD`, `categoria`) VALUES
+(1, 'Superiores'),
+(2, 'Inferiores'),
+(3, 'Paralisado Cerebral'),
+(4, 'Nanismo'),
+(5, 'Auditivo'),
+(6, 'Visual'),
+(7, 'Mental');
 
 -- --------------------------------------------------------
 
@@ -50,12 +74,35 @@ CREATE TABLE `dados` (
   `estado_civil` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `dados`
+-- Estrutura da tabela `deficiencia`
 --
 
-INSERT INTO `dados` (`CPF`, `nome`, `data_nascimento`, `email`, `estado_natal`, `cidade_natal`, `genero`, `estado_civil`) VALUES
-('03', '03', '0000-00-00', '', '3', '2', 'feminino', 1);
+CREATE TABLE `deficiencia` (
+  `IDD` int(11) NOT NULL,
+  `IDC` int(11) NOT NULL,
+  `deficiencia` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `deficiencia`
+--
+
+INSERT INTO `deficiencia` (`IDD`, `IDC`, `deficiencia`) VALUES
+(1, 2, 'Amputado de 1 membro abaixo do joelho '),
+(3, 2, 'Amputado de 1 membro acima do joelho'),
+(4, 2, 'Amputado de 2 membros abaixo do joelho'),
+(5, 2, 'Amputado de 2 membros acima do joelho'),
+(6, 2, 'Atrofia ou encurtamento (sem uso de órtese ou muleta'),
+(7, 2, 'Paralisia, Atrofia ou encurtamento de 1 membro'),
+(8, 2, 'Paraplegia'),
+(9, 1, 'Atrofia ou encurtamento de 1 ou 2 membros (sem perca da funcionalidade)'),
+(10, 1, 'Paralisia de 1 membro ou 2 membros'),
+(11, 1, 'Amputado de 1 membro'),
+(12, 1, 'Amputado de 2 membros'),
+(13, 1, 'Tetraplegia');
 
 -- --------------------------------------------------------
 
@@ -176,6 +223,12 @@ CREATE TABLE `telefone` (
 --
 
 --
+-- Índices para tabela `categorias_deficiencia`
+--
+ALTER TABLE `categorias_deficiencia`
+  ADD PRIMARY KEY (`IDCD`);
+
+--
 -- Índices para tabela `cidades`
 --
 ALTER TABLE `cidades`
@@ -188,6 +241,12 @@ ALTER TABLE `dados`
   ADD PRIMARY KEY (`CPF`),
   ADD KEY `fk_etado_civil` (`estado_civil`),
   ADD KEY `fk_genero` (`genero`);
+
+--
+-- Índices para tabela `deficiencia`
+--
+ALTER TABLE `deficiencia`
+  ADD PRIMARY KEY (`IDD`);
 
 --
 -- Índices para tabela `endereco`
@@ -228,6 +287,12 @@ ALTER TABLE `telefone`
 --
 ALTER TABLE `cidades`
   MODIFY `IDC` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `deficiencia`
+--
+ALTER TABLE `deficiencia`
+  MODIFY `IDD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `estado`
